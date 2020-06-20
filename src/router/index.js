@@ -1,27 +1,29 @@
+//一级界面
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Mine from '../views/Mine.vue'
+
+//二级界面(home的子路由)
+import News from '../views/News.vue'
+import Shop from '../views/Shop.vue'
+
 Vue.use(VueRouter)
   const routes = [
-//	{ path: '/', redirect: '/home' },//重定向1
-// { path: '/', redirect: {name:'About'} },//重定向2
- // { path: '/', redirect: to => { //目标路由3
- //      // 方法接收 目标路由 作为参数
- //      // return 重定向的 字符串路径/路径对象
-	// 		{return '/home'} 
- //    }},
+	{path:'/',redirect:'/home'},
   {
     path: '/home',
     name: 'Home',
-    component: Home
+    component: Home,
+		children:[
+			{path:'/home',redirect:'/home/news'},
+			{	path:'news',name:'news',component:News,},
+			{	path:'shop',name:'shop',component:Shop,}
+		]
   },
   {
     path: '/about',
     name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
   },
 	{ 
